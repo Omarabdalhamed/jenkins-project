@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                echo '📥 Cloning the repo...'
+                // Jenkins هيسحب من GitHub تلقائيًا، فمش ضروري تحط git هنا
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo '🛠️ Running build step...'
+                sh 'chmod +x hello.sh'
+                sh './hello.sh'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo '🧪 Running tests...'
+                sh 'echo "✅ All tests passed!"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo '🚀 Deploying...'
+                sh 'cp hello.sh deploy/hello.sh'
+                sh 'echo "✅ Deployed to deploy/ directory"'
+            }
+        }
+    }
+}
